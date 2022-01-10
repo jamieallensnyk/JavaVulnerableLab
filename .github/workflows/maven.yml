@@ -31,13 +31,10 @@ jobs:
 
         # Generate the HTML report #
       - name: install snyk-to-html
-        run: |
-       # Install the Snyk JSON to HTML Mapper using npm #
-               npm install snyk-to-html -g
-               # Convert JSON output from `snyk test --json` into a static HTML #
-               snyk test --json | snyk-to-html -o result.html
-               mkdir downloads
-               cp -v /home/runner/work/java-goof/java-goof/*.html /home/runner/work/java-goof/java-goof/downloads
+      - run:  npm install snyk-to-html -g  # Install the Snyk JSON to HTML Mapper using npm #
+              snyk test --json | snyk-to-html -o result.html  # Convert JSON output from `snyk test --json` into a static HTML #
+              mkdir downloads
+              cp -v /home/runner/work/java-goof/java-goof/*.html /home/runner/work/java-goof/java-goof/downloads
 
       # save the HTML in the artifact #
       - name: Use the Upload Artifact GitHub Action
