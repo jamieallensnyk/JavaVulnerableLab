@@ -8,6 +8,10 @@ package org.cysecurity.cspf.jvl.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +45,20 @@ public class Open extends HttpServlet {
            else
            {
                out.print("Missing url parameter");
+           }
+           String userId = request.getParameter("userId");
+           if (userId != null) {
+               try {
+                   Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vulnerableDB", "root", "password");
+                   Statement stmt = conn.createStatement();
+                   String query = "SELECT * FROM users WHERE id = '" + userId + "'";
+                   ResultSet rs = stmt.executeQuery(query);
+                   while (rs.next()) {
+                       out.println("User: " + rs.getString("username"));
+                   }
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
            }
         }
          catch(Exception e)
