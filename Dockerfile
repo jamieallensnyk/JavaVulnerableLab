@@ -1,4 +1,4 @@
-FROM tomcat
+FROM tomcat:11.0.27-jdk25-temurin-resolute
 
 COPY . .
 
